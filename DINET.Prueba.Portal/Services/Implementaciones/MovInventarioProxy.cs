@@ -26,13 +26,12 @@ namespace DINET.Prueba.Portal.Services.Implementaciones
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
         public async Task<ICollection<MovInventarioDtoResponse>> Consultar(MovInventarioFiltroDtoRequest request)
         {
             try
             {
                 var queryParams = request.ToDictionary();
-                var queryString = Serializacion.ToQueryString(queryParams);
+                var queryString = Serializacion.ToQueryString(queryParams!);
                 if (queryString == "?") queryString = "";                
 
                 var response = await HttpClient.GetAsync($"{BaseUrl}/Consultar{queryString}");
@@ -47,6 +46,32 @@ namespace DINET.Prueba.Portal.Services.Implementaciones
                 }
 
                 return result.Data!;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Proxy: Insertar
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task Insertar(MovInventarioDtoRequest request)
+        {
+            try
+            {
+                var response = await HttpClient.PostAsJsonAsync($"{BaseUrl}/Insertar", request);
+                if (response.IsSuccessStatusCode)
+                {
+                    var resultado = await response.Content.ReadFromJsonAsync<BaseResponse>();
+                    if (resultado!.Success == false)
+                        throw new InvalidOperationException(resultado.ErrorMessage);
+                }
+                else
+                {
+                    throw new InvalidOperationException(response.ReasonPhrase);
+                }
             }
             catch (Exception ex)
             {

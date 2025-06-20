@@ -132,33 +132,72 @@
 <div class="modal fade" id="modalInventario" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Registro de Inventario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            @await Html.PartialAsync("_ModalInventarioPartial", new DINET.Prueba.Models.Request.Inventario.MovInventarioDtoRequest())
+        </div>
+    </div>
+</div>
+<!-- End Modal de Registro / Edición -->
+
+<!-- Modal de Mensaje -->
+<div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalMensajeLabel">Mensaje</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <div class="modal-body">
-                <form id="formInventario">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Cód. CIA</label>
-                            <input type="text" class="form-control" name="COD_CIA">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Compañía Venta</label>
-                            <input type="text" class="form-control" name="COMPANIA_VENTA_3">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Almacén Venta</label>
-                            <input type="text" class="form-control" name="ALMACEN_VENTA">
-                        </div>
-                    </div>
-                    <!-- Puedes seguir agregando más campos según tu modelo -->
-                </form>
+            <div class="modal-body" id="modalMensajeBody">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
 </div>
+<!-- End Modal de Mensaje -->
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        // Guardar registro
+        $("#btnGuardar").click(function (e) {
+            e.preventDefault();
+
+            var form = $("#formInventario");
+
+            if (!form.valid()) {
+                return;
+            }
+
+            var formData = form.serialize();
+
+            $.ajax({
+                url: '@Url.Action("Insertar", "Inventario")',
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if (result.success) {
+                        // Ocultar modal
+                        $("#modalInventario").modal("hide");
+
+                        // Mostrar modal mensaje
+                        mostrarModalMensaje(result.message);
+
+                        // Recargar al cerrar el modal de mensaje
+                        var modal = document.getElementById("modalMensaje");
+                        modal.addEventListener('hidden.bs.modal', function () {
+                            location.reload();
+                        }, { once: true });
+                    } else {
+                        // devuelve modal con errores de validación
+                        $("#modalInventario .modal-content").html(result);
+                    }
+                },
+                error: function () {
+                    mostrarModalMensaje("Ocurrió un error inesperado al guardar.");
+                }
+            });
+        });
+    </script>
+}

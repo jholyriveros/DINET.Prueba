@@ -1,4 +1,5 @@
-﻿using DINET.Prueba.Models.Response.Inventario;
+﻿using DINET.Prueba.Models.Request.Inventario;
+using DINET.Prueba.Models.Response.Inventario;
 using DINET.Prueba.Portal.Services.Interfaces;
 using DINET.Prueba.ViewModels.Inventario;
 using Microsoft.AspNetCore.Mvc;
@@ -41,13 +42,17 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
         }
         #endregion
 
+        /// <summary>
+        /// Index
+        /// </summary>
+        [HttpGet]
         public IActionResult Index(InventarioViewModel model)
         {
-            // Establecer fechas por defecto si no se enviaron en el filtro
+            // Establecer fechas por defecto si no se enviaron en el filtro para mostrar en el view
             if (!model.Filtro.FechaInicio.HasValue || !model.Filtro.FechaFin.HasValue)
             {
                 model.Filtro.FechaInicio = new DateTime(2025, 1, 1);
-                model.Filtro.FechaFin = new DateTime(2025, 6, 30);
+                model.Filtro.FechaFin = DateTime.Today;
             }
 
             // Valor minimo para evitar errores
@@ -72,5 +77,29 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
 
             return View(model);
         }
+
+        /// <summary>
+        /// Insertar
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Insertar(MovInventarioDtoRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_ModalInventarioPartial", model);
+            }
+
+            try
+            {
+                await _proxy.Insertar(model);
+                return Json(new { success = true, message = "Registro guardado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return PartialView("_ModalInventarioPartial", model);
+            }
+        }
+
     }
 }

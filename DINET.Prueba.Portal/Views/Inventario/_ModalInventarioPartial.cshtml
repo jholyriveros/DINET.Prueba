@@ -1,0 +1,94 @@
+﻿@using DINET.Prueba.Models.Request.Inventario;
+@model MovInventarioDtoRequest
+
+<form id="formInventario" method="post" novalidate>
+    <div class="modal-header">
+        <h5 class="modal-title">Registro de Inventario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Cód. CIA</label>
+                @Html.TextBoxFor(m => m.COD_CIA, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.COD_CIA, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Compañía Venta</label>
+                @Html.TextBoxFor(m => m.COMPANIA_VENTA_3, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.COMPANIA_VENTA_3, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Almacén Venta</label>
+                @Html.TextBoxFor(m => m.ALMACEN_VENTA, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ALMACEN_VENTA, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Tipo Movimiento</label>
+                @Html.TextBoxFor(m => m.TIPO_MOVIMIENTO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.TIPO_MOVIMIENTO, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Tipo Documento</label>
+                @Html.TextBoxFor(m => m.TIPO_DOCUMENTO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.TIPO_DOCUMENTO, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Nro Documento</label>
+                @Html.TextBoxFor(m => m.NRO_DOCUMENTO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.NRO_DOCUMENTO, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Código Item</label>
+                @Html.TextBoxFor(m => m.COD_ITEM_2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.COD_ITEM_2, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Proveedor</label>
+                @Html.TextBoxFor(m => m.PROVEEDOR, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PROVEEDOR, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Almacén Destino</label>
+                @Html.TextBoxFor(m => m.ALMACEN_DESTINO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ALMACEN_DESTINO, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Cantidad</label>
+                @Html.TextBoxFor(m => m.CANTIDAD, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(m => m.CANTIDAD, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Doc Ref 1</label>
+                @Html.TextBoxFor(m => m.DOC_REF_1, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Doc Ref 2</label>
+                @Html.TextBoxFor(m => m.DOC_REF_2, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Doc Ref 3</label>
+                @Html.TextBoxFor(m => m.DOC_REF_3, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Doc Ref 4</label>
+                @Html.TextBoxFor(m => m.DOC_REF_4, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Doc Ref 5</label>
+                @Html.TextBoxFor(m => m.DOC_REF_5, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Fecha Transacción</label>
+                @Html.TextBoxFor(m => m.FECHA_TRANSACCION, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(m => m.FECHA_TRANSACCION, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+    </div>
+</form>

@@ -13,7 +13,12 @@ namespace DINET.Prueba.Portal.Services.Interfaces
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
         Task<ICollection<MovInventarioDtoResponse>> Consultar(MovInventarioFiltroDtoRequest request);
+
+        /// <summary>
+        /// IProxy: Insertar
+        /// </summary>
+        /// <param name="request"></param>
+        Task Insertar(MovInventarioDtoRequest request);
     }
 }

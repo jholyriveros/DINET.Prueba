@@ -1,4 +1,6 @@
-﻿namespace DINET.Prueba.Models.Request.Inventario
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DINET.Prueba.Models.Request.Inventario
 {
     /// <summary>
     /// MovInventario Dto Request
@@ -8,51 +10,62 @@
         /// <summary>
         /// Código de compañía
         /// </summary>
+        [Required(ErrorMessage = "Cód. CIA es obligatorio")]
         public string COD_CIA { get; set; } = default!;
 
         /// <summary>
         /// Compañía de venta 3
         /// </summary>
+        [Required(ErrorMessage = "Compañía venta es obligatorio")]
         public string COMPANIA_VENTA_3 { get; set; } = default!;
 
         /// <summary>
         /// Almacén de venta
         /// </summary>
+        [Required(ErrorMessage = "Almacén venta es obligatorio")]
         public string ALMACEN_VENTA { get; set; } = default!;
 
         /// <summary>
         /// Tipo de movimiento (IN, OU, etc.)
         /// </summary>
+        [Required(ErrorMessage = "Tipo movimiento es obligatorio")]
         public string TIPO_MOVIMIENTO { get; set; } = default!;
 
         /// <summary>
         /// Tipo de documento (FV, etc.)
         /// </summary>
+        [Required(ErrorMessage = "Tipo documento es obligatorio")]
         public string TIPO_DOCUMENTO { get; set; } = default!;
 
         /// <summary>
         /// Número de documento
         /// </summary>
+        [Required(ErrorMessage = "Nro. documento es obligatorio")]
         public string NRO_DOCUMENTO { get; set; } = default!;
 
         /// <summary>
         /// Código del ítem
         /// </summary>
+        [Required(ErrorMessage = "Cod. Item 2 es obligatorio")]
         public string COD_ITEM_2 { get; set; } = default!;
 
         /// <summary>
         /// Nombre del proveedor
         /// </summary>
+        [Required(ErrorMessage = "Proveedor es obligatorio")]
         public string? PROVEEDOR { get; set; }
 
         /// <summary>
         /// Almacén de destino (si aplica)
         /// </summary>
+        [Required(ErrorMessage = "Almacén destino es obligatorio")]
         public string? ALMACEN_DESTINO { get; set; }
 
         /// <summary>
         /// Cantidad
         /// </summary>
+        [Required(ErrorMessage = "Cantidad es obligatorio")]
+        [Range(1, int.MaxValue, ErrorMessage = "Cantidad debe ser mayor a cero")]
         public int? CANTIDAD { get; set; }
 
         /// <summary>
@@ -83,7 +96,8 @@
         /// <summary>
         /// Fecha de transacción
         /// </summary>
-        public DateTime? FECHA_TRANSACCION { get; set; }
+        [Required(ErrorMessage = "Fecha transacción es obligatorio")]
+        public DateTime? FECHA_TRANSACCION { get; set; } = DateTime.Now;
     }
 
     /// <summary>
