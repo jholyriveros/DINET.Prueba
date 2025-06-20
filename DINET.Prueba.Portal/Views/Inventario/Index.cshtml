@@ -139,21 +139,7 @@
 <!-- End Modal de Registro / Edición -->
 
 <!-- Modal de Mensaje -->
-<div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="modalMensajeLabel">Mensaje</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body" id="modalMensajeBody">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
+@await Html.PartialAsync("~/Views/Shared/_ModalMensaje.cshtml")
 <!-- End Modal de Mensaje -->
 
 @section Scripts {

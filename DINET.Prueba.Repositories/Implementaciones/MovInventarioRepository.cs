@@ -58,6 +58,11 @@ namespace DINET.Prueba.Repositories.Implementaciones
                                 PROVEEDOR = reader["PROVEEDOR"]?.ToString(),
                                 ALMACEN_DESTINO = reader["ALMACEN_DESTINO"]?.ToString(),
                                 CANTIDAD = reader["CANTIDAD"] != DBNull.Value ? Convert.ToInt32(reader["CANTIDAD"]) : null,
+                                DOC_REF_1 = reader["DOC_REF_1"]?.ToString(),
+                                DOC_REF_2 = reader["DOC_REF_2"]?.ToString(),
+                                DOC_REF_3 = reader["DOC_REF_3"]?.ToString(),
+                                DOC_REF_4 = reader["DOC_REF_4"]?.ToString(),
+                                DOC_REF_5 = reader["DOC_REF_5"]?.ToString(),
                                 FECHA_TRANSACCION = reader["FECHA_TRANSACCION"] != DBNull.Value ? Convert.ToDateTime(reader["FECHA_TRANSACCION"]) : null
                             });
                         }
