@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.deps.json" />
+    <Content Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.runtimeconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">

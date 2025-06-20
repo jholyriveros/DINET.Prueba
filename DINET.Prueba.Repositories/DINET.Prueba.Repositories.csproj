@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="bin\Debug\net8.0\DINET.Prueba.Repositories.deps.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Common.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Common.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Repositories.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Repositories.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
   </ItemGroup>

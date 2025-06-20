@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="bin\Debug\net8.0\DINET.Prueba.Services.deps.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Common.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Common.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.DataAccess.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Models.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Models.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Repositories.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Repositories.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Services.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Services.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />

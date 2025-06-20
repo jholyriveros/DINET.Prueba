@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="bin\Debug\net8.0\DINET.Prueba.Entities.deps.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Entities.pdb" />
+  </ItemGroup>
+
 </Project>

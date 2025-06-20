@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="bin\Debug\net8.0\DINET.Prueba.ViewModels.deps.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Models.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.Models.pdb" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.ViewModels.dll" />
+    <None Include="bin\Debug\net8.0\DINET.Prueba.ViewModels.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DINET.Prueba.Models\DINET.Prueba.Models.csproj" />
   </ItemGroup>
 
