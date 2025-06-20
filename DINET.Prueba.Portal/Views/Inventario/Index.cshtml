@@ -35,6 +35,10 @@
 
 <!-- Tabla de resultados -->
 <div class="table-responsive">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted small">Total de registros: <strong>@Model.TotalRegistros</strong></span>
+    </div>
+
     <table class="table table-bordered table-hover table-sm shadow-sm rounded">
         <thead class="bg-light text-secondary text-uppercase text-center small align-middle" style="font-size: 0.75rem;">
             <tr>
@@ -99,32 +103,30 @@
         </tbody>
     </table>
 </div>
+<!-- End Tabla de resultados -->
 
+<!-- Paginador -->
 @if (Model?.TotalPaginas > 1)
 {
     <nav aria-label="Paginación">
-        <ul class="pagination justify-content-center mt-3">
+        <ul class="pagination justify-content-center mt-0">
             @for (int i = 1; i <= Model.TotalPaginas; i++)
             {
-                var url = Url.Action("Index", new
-                {
-                    PaginaActual = i,
-                    Filtro = new
-                    {
-                        FechaInicio = Model.Filtro.FechaInicio?.ToString("yyyy-MM-dd"),
-                        FechaFin = Model.Filtro.FechaFin?.ToString("yyyy-MM-dd"),
-                        TipoMovimiento = Model.Filtro.TipoMovimiento,
-                        NroDocumento = Model.Filtro.NroDocumento
-                    }
-                });
-
                 <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
-                    <a class="page-link" href="@url">@i</a>
+                    <form method="get" class="d-inline">
+                        <input type="hidden" name="PaginaActual" value="@i" />
+                        <input type="hidden" name="Filtro.FechaInicio" value="@Model.Filtro.FechaInicio?.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" name="Filtro.FechaFin" value="@Model.Filtro.FechaFin?.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" name="Filtro.TipoMovimiento" value="@Model.Filtro.TipoMovimiento" />
+                        <input type="hidden" name="Filtro.NroDocumento" value="@Model.Filtro.NroDocumento" />
+                        <button type="submit" class="page-link">@i</button>
+                    </form>
                 </li>
             }
         </ul>
     </nav>
 }
+<!-- End Paginador -->
 
 <!-- Modal de Registro / Edición -->
 <div class="modal fade" id="modalInventario" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">

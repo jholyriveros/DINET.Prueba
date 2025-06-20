@@ -6,47 +6,47 @@
     public class Mov_Inventario
     {
         /// <summary>
-        /// Código de compañía
+        /// Código compañía
         /// </summary>
         public string COD_CIA { get; set; } = default!;
 
         /// <summary>
-        /// Compañía de venta 3
+        /// Compañía venta 3
         /// </summary>
         public string COMPANIA_VENTA_3 { get; set; } = default!;
 
         /// <summary>
-        /// Almacén de venta
+        /// Almacén venta
         /// </summary>
         public string ALMACEN_VENTA { get; set; } = default!;
 
         /// <summary>
-        /// Tipo de movimiento (IN, OU, etc.)
+        /// Tipo movimiento (IN, OU, etc.)
         /// </summary>
         public string TIPO_MOVIMIENTO { get; set; } = default!;
 
         /// <summary>
-        /// Tipo de documento (FV, etc.)
+        /// Tipo documento (FV, etc.)
         /// </summary>
         public string TIPO_DOCUMENTO { get; set; } = default!;
 
         /// <summary>
-        /// Número de documento
+        /// Número documento
         /// </summary>
         public string NRO_DOCUMENTO { get; set; } = default!;
 
         /// <summary>
-        /// Código del ítem
+        /// Código ítem
         /// </summary>
         public string COD_ITEM_2 { get; set; } = default!;
 
         /// <summary>
-        /// Nombre del proveedor
+        /// Nombre proveedor
         /// </summary>
         public string? PROVEEDOR { get; set; }
 
         /// <summary>
-        /// Almacén de destino (si aplica)
+        /// Almacén destino (si aplica)
         /// </summary>
         public string? ALMACEN_DESTINO { get; set; }
 
@@ -56,32 +56,32 @@
         public int? CANTIDAD { get; set; }
 
         /// <summary>
-        /// Documento de referencia 1
+        /// Documento referencia 1
         /// </summary>
         public string? DOC_REF_1 { get; set; }
 
         /// <summary>
-        /// Documento de referencia 2
+        /// Documento referencia 2
         /// </summary>
         public string? DOC_REF_2 { get; set; }
 
         /// <summary>
-        /// Documento de referencia 3
+        /// Documento referencia 3
         /// </summary>
         public string? DOC_REF_3 { get; set; }
 
         /// <summary>
-        /// Documento de referencia 4
+        /// Documento referencia 4
         /// </summary>
         public string? DOC_REF_4 { get; set; }
 
         /// <summary>
-        /// Documento de referencia 5
+        /// Documento referencia 5
         /// </summary>
         public string? DOC_REF_5 { get; set; }
 
         /// <summary>
-        /// Fecha de transacción
+        /// Fecha transacción
         /// </summary>
         public DateTime? FECHA_TRANSACCION { get; set; }
     }

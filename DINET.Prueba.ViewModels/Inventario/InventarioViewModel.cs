@@ -19,6 +19,11 @@ namespace DINET.Prueba.ViewModels.Inventario
         public ICollection<MovInventarioDtoResponse> ListaInventario { get; set; } = new List<MovInventarioDtoResponse>();
 
         /// <summary>
+        /// Total de registros
+        /// </summary>
+        public int TotalRegistros { get; set; }
+
+        /// <summary>
         /// Paginación
         /// </summary>
         public int PaginaActual { get; set; } = 1;

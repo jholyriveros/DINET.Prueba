@@ -1,4 +1,5 @@
-﻿using DINET.Prueba.Portal.Services.Interfaces;
+﻿using DINET.Prueba.Models.Response.Inventario;
+using DINET.Prueba.Portal.Services.Interfaces;
 using DINET.Prueba.ViewModels.Inventario;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,19 +43,28 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
 
         public IActionResult Index(InventarioViewModel model)
         {
-            if (!model.Filtro.FechaInicio.HasValue && !model.Filtro.FechaFin.HasValue)
+            // Establecer fechas por defecto si no se enviaron en el filtro
+            if (!model.Filtro.FechaInicio.HasValue || !model.Filtro.FechaFin.HasValue)
             {
                 model.Filtro.FechaInicio = new DateTime(2025, 1, 1);
                 model.Filtro.FechaFin = new DateTime(2025, 6, 30);
             }
 
+            // Valor minimo para evitar errores
+            if (model.PaginaActual <= 0) model.PaginaActual = 1;
+            if (model.RegistrosPorPagina <= 0) model.RegistrosPorPagina = 10;
+
+            // Consultar datos del API
             var resultado = _proxy.Consultar(model.Filtro);
             resultado.Wait();
 
-            var lista = resultado.Result;
+            var lista = resultado.Result ?? new List<MovInventarioDtoResponse>();
+            model.TotalRegistros = lista.Count;
 
+            // Calcular total de páginas
             model.TotalPaginas = (int)Math.Ceiling(lista.Count / (double)model.RegistrosPorPagina);
 
+            // Obtener la página actual
             model.ListaInventario = lista
                 .Skip((model.PaginaActual - 1) * model.RegistrosPorPagina)
                 .Take(model.RegistrosPorPagina)

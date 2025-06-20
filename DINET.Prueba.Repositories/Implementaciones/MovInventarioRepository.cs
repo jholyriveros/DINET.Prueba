@@ -12,7 +12,7 @@ namespace DINET.Prueba.Repositories.Implementaciones
         private readonly string _connectionString;
 
         /// <summary>
-        /// MovInventarioRepository
+        /// MovInventario Repository
         /// </summary>
         /// <param name="configuration"></param>
         public MovInventarioRepository(IConfiguration configuration)

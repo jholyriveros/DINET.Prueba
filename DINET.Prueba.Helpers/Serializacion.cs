@@ -3,8 +3,14 @@ using System.Web;
 
 namespace DINET.Prueba.Helpers
 {
+    /// <summary>
+    /// Serializacion
+    /// </summary>
     public static class Serializacion
     {
+        /// <summary>
+        /// ToDictionary
+        /// </summary>
         public static Dictionary<string, string?> ToDictionary(this object source)
         {
             return source.GetType()
@@ -16,6 +22,9 @@ namespace DINET.Prueba.Helpers
                          );
         }
 
+        /// <summary>
+        /// Format Value
+        /// </summary>
         private static string? FormatValue(object? value)
         {
             if (value == null) return null;
@@ -28,6 +37,9 @@ namespace DINET.Prueba.Helpers
             };
         }
 
+        /// <summary>
+        /// ToQuery String
+        /// </summary>
         public static string ToQueryString(Dictionary<string, string?> parameters)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);

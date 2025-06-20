@@ -1,7 +1,13 @@
 ﻿namespace DINET.Prueba.Utilitarios
 {
+    /// <summary>
+    /// Log Helper
+    /// </summary>
     public static class LogHelper
     {
+        /// <summary>
+        /// Registrar Log
+        /// </summary>
         public static void RegistrarLog(string mensaje)
         {
             var ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");

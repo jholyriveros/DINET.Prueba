@@ -2,7 +2,6 @@
 using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
 using DINET.Prueba.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DINET.Prueba.ApiRest.Controllers.Inventario
@@ -28,7 +27,6 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
         /// <summary>
         /// ApiRest: Consultar
         /// </summary>
-        /// <returns></returns>
         /// <param name="request"></param>
         [HttpGet("Consultar")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponseGeneric<ICollection<MovInventarioDtoResponse>>))]
@@ -43,7 +41,6 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
         /// ApiRest: Insertar
         /// </summary>
         /// <param name="request"></param>
-        /// <returns></returns>
         [HttpPost("Insertar")]
         public async Task<IActionResult> Insertar(MovInventarioDtoRequest request)
         {
@@ -55,7 +52,6 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
         /// ApiRest: Actualizar
         /// </summary>
         /// <param name="request"></param>
-        /// <returns></returns>
         [HttpPut("Actualizar")]
         public async Task<IActionResult> Actualizar(MovInventarioDtoRequest request)
         {
@@ -67,7 +63,6 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
         /// ApiRest: Eliminar
         /// </summary>
         /// <param name="request"></param>
-        /// <returns></returns>
         [HttpDelete("Eliminar")]
         public async Task<IActionResult> Eliminar(MovInventarioDtoRequest request)
         {
