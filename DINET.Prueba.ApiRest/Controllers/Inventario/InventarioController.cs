@@ -50,5 +50,29 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
             var response = await _service.Insertar(request);
             return response.Success ? Ok(response) : BadRequest(response);
         }
+
+        /// <summary>
+        /// ApiRest: Actualizar
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPut("Actualizar")]
+        public async Task<IActionResult> Actualizar(MovInventarioDtoRequest request)
+        {
+            var response = await _service.Actualizar(request);
+            return response.Success ? Ok(response) : BadRequest(response);
+        }
+
+        /// <summary>
+        /// ApiRest: Eliminar
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpDelete("Eliminar")]
+        public async Task<IActionResult> Eliminar(MovInventarioDtoRequest request)
+        {
+            var response = await _service.Eliminar(request);
+            return response.Success ? Ok(response) : BadRequest(response);
+        }
     }
 }

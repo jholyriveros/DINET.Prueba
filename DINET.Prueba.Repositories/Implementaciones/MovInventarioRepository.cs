@@ -127,5 +127,94 @@ namespace DINET.Prueba.Repositories.Implementaciones
 
             return response;
         }
+
+        /// <summary>
+        /// Actualizar
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task<BaseResponse> Actualizar(Mov_Inventario request)
+        {
+            var response = new BaseResponse();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = new SqlCommand("sp_ActualizarInventario", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@COD_CIA", request.COD_CIA);
+                    cmd.Parameters.AddWithValue("@COMPANIA_VENTA_3", request.COMPANIA_VENTA_3);
+                    cmd.Parameters.AddWithValue("@ALMACEN_VENTA", request.ALMACEN_VENTA);
+                    cmd.Parameters.AddWithValue("@TIPO_MOVIMIENTO", request.TIPO_MOVIMIENTO);
+                    cmd.Parameters.AddWithValue("@TIPO_DOCUMENTO", request.TIPO_DOCUMENTO);
+                    cmd.Parameters.AddWithValue("@NRO_DOCUMENTO", request.NRO_DOCUMENTO);
+                    cmd.Parameters.AddWithValue("@COD_ITEM_2", request.COD_ITEM_2);
+                    cmd.Parameters.AddWithValue("@PROVEEDOR", (object?)request.PROVEEDOR ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ALMACEN_DESTINO", (object?)request.ALMACEN_DESTINO ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@CANTIDAD", (object?)request.CANTIDAD ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DOC_REF_1", (object?)request.DOC_REF_1 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DOC_REF_2", (object?)request.DOC_REF_2 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DOC_REF_3", (object?)request.DOC_REF_3 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DOC_REF_4", (object?)request.DOC_REF_4 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DOC_REF_5", (object?)request.DOC_REF_5 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FECHA_TRANSACCION", (object?)request.FECHA_TRANSACCION ?? DBNull.Value);
+
+                    await conn.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+
+                    response.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorMsg = $"Error al actualizar: {ex.Message}";
+                response.Success = false;
+                response.ErrorMessage = errorMsg;
+
+                Utilitarios.LogHelper.RegistrarLog(errorMsg);
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Eliminar
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task<BaseResponse> Eliminar(Mov_Inventario request)
+        {
+            var response = new BaseResponse();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = new SqlCommand("sp_EliminarInventario", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@COD_CIA", request.COD_CIA);
+                    cmd.Parameters.AddWithValue("@COMPANIA_VENTA_3", request.COMPANIA_VENTA_3);
+                    cmd.Parameters.AddWithValue("@ALMACEN_VENTA", request.ALMACEN_VENTA);
+                    cmd.Parameters.AddWithValue("@TIPO_MOVIMIENTO", request.TIPO_MOVIMIENTO);
+                    cmd.Parameters.AddWithValue("@TIPO_DOCUMENTO", request.TIPO_DOCUMENTO);
+                    cmd.Parameters.AddWithValue("@NRO_DOCUMENTO", request.NRO_DOCUMENTO);
+                    cmd.Parameters.AddWithValue("@COD_ITEM_2", request.COD_ITEM_2);
+
+                    await conn.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+
+                    response.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorMsg = $"Error al eliminar: {ex.Message}";
+                response.Success = false;
+                response.ErrorMessage = errorMsg;
+
+                Utilitarios.LogHelper.RegistrarLog(errorMsg);
+            }
+
+            return response;
+        }
     }
 }

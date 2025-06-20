@@ -22,5 +22,19 @@ namespace DINET.Prueba.Services.Interfaces
         /// <param name="request"></param>
         /// <returns></returns>
         Task<BaseResponse> Insertar(MovInventarioDtoRequest request);
+
+        /// <summary>
+        /// IService: Actualizar
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<BaseResponse> Actualizar(MovInventarioDtoRequest request);
+
+        /// <summary>
+        /// IService: Eliminar
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<BaseResponse> Eliminar(MovInventarioDtoRequest request);
     }
 }

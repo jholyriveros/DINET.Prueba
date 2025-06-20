@@ -20,16 +20,16 @@ namespace DINET.Prueba.Repositories.Interfaces
         /// <param name="request">
         Task<BaseResponse> Insertar(Mov_Inventario request);
 
-        ///// <summary>
-        ///// Actualizar
-        ///// </summary>
-        ///// <param name="request">
-        //Task<BaseResponse<bool>> Actualizar(MOV_INVENTARIO request);
+        /// <summary>
+        /// Actualizar
+        /// </summary>
+        /// <param name="request">
+        Task<BaseResponse> Actualizar(Mov_Inventario request);
 
-        ///// <summary>
-        ///// Eliminar
-        ///// </summary>
-        ///// <param name="request">
-        //Task<BaseResponse<bool>> Eliminar(MOV_INVENTARIO request);
+        /// <summary>
+        /// Eliminar
+        /// </summary>
+        /// <param name="request">
+        Task<BaseResponse> Eliminar(Mov_Inventario request);
     }
 }

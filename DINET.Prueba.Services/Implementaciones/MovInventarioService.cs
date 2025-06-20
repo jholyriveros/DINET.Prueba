@@ -99,5 +99,67 @@ namespace DINET.Prueba.Services.Implementaciones
 
             return response;
         }
+
+        /// <summary>
+        /// Service: Actualizar
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task<BaseResponse> Actualizar(MovInventarioDtoRequest request)
+        {
+            var response = new BaseResponse();
+
+            try
+            {
+                var repositoryResponse = await _repository.Actualizar(_mapper.Map<Mov_Inventario>(request));
+
+                if (repositoryResponse.Success)
+                {
+                    response.Success = true;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.ErrorMessage = $"Repository Error: {repositoryResponse.ErrorMessage}";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.ErrorMessage = "Service Error: " + ex.Message;
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Service: Eliminar
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task<BaseResponse> Eliminar(MovInventarioDtoRequest request)
+        {
+            var response = new BaseResponse();
+
+            try
+            {
+                var repositoryResponse = await _repository.Eliminar(_mapper.Map<Mov_Inventario>(request));
+
+                if (repositoryResponse.Success)
+                {
+                    response.Success = true;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.ErrorMessage = $"Repository Error: {repositoryResponse.ErrorMessage}";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.ErrorMessage = "Service Error: " + ex.Message;
+            }
+
+            return response;
+        }
     }
 }
