@@ -30,6 +30,7 @@
     <ProjectReference Include="..\DINET.Prueba.Common\DINET.Prueba.Common.csproj" />
     <ProjectReference Include="..\DINET.Prueba.DataAccess\DINET.Prueba.DataAccess.csproj" />
     <ProjectReference Include="..\DINET.Prueba.Entities\DINET.Prueba.Entities.csproj" />
+    <ProjectReference Include="..\DINET.Prueba.Helpers\DINET.Prueba.Helpers.csproj" />
   </ItemGroup>
 
 </Project>
