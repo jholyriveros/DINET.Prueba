@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DINET.Prueba.DataAccess\DINET.Prueba.DataAccess.csproj" />
+    <ProjectReference Include="..\DINET.Prueba.Models\DINET.Prueba.Models.csproj" />
+    <ProjectReference Include="..\DINET.Prueba.Repositories\DINET.Prueba.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
