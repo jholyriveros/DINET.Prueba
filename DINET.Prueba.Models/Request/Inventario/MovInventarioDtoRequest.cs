@@ -110,5 +110,17 @@
         /// Nro Documento
         /// </summary>
         public string? NroDocumento { get; set; }
+
+        public Dictionary<string, string> ToDictionary()
+        {
+            var dict = new Dictionary<string, string>();
+
+            if (FechaInicio.HasValue) dict["FechaInicio"] = FechaInicio.Value.ToString("yyyy-MM-dd");
+            if (FechaFin.HasValue) dict["FechaFin"] = FechaFin.Value.ToString("yyyy-MM-dd");
+            if (!string.IsNullOrEmpty(TipoMovimiento)) dict["TipoMovimiento"] = TipoMovimiento;
+            if (!string.IsNullOrEmpty(NroDocumento)) dict["NroDocumento"] = NroDocumento;
+
+            return dict;
+        }
     }
 }

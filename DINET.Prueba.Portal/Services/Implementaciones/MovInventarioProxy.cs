@@ -1,0 +1,57 @@
+﻿using DINET.Prueba.Helpers;
+using DINET.Prueba.Models.Request.Inventario;
+using DINET.Prueba.Models.Response.Base;
+using DINET.Prueba.Models.Response.Inventario;
+using DINET.Prueba.Portal.Services.Interfaces;
+
+namespace DINET.Prueba.Portal.Services.Implementaciones
+{
+    public class MovInventarioProxy : RestBase, IMovInventarioProxy
+    {
+        private readonly IHttpContextAccessor? _httpContextAccessor;
+
+        /// <summary>
+        /// Instanciar
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="httpContextAccessor"></param>
+        public MovInventarioProxy(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+            : base("api/Inventario", httpClient)
+        {
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+        }
+
+        /// <summary>
+        /// Proxy: Consultar
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public async Task<ICollection<MovInventarioDtoResponse>> Consultar(MovInventarioFiltroDtoRequest request)
+        {
+            try
+            {
+                var queryParams = request.ToDictionary();
+                var queryString = Serializacion.ToQueryString(queryParams);
+                if (queryString == "?") queryString = "";                
+
+                var response = await HttpClient.GetAsync($"{BaseUrl}/Consultar{queryString}");
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content
+                    .ReadFromJsonAsync<BaseResponseGeneric<ICollection<MovInventarioDtoResponse>>>();
+
+                if (result!.Success == false)
+                {
+                    throw new InvalidOperationException(result.ErrorMessage);
+                }
+
+                return result.Data!;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+        }
+    }
+}

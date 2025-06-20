@@ -1,0 +1,162 @@
+﻿@using DINET.Prueba.ViewModels.Inventario;
+@model InventarioViewModel
+
+@{
+    ViewData["Title"] = "Gestión inventario";
+}
+
+<h2 class="mb-4">Gestión de Inventario</h2>
+
+<!-- Filtros -->
+<form id="formFiltro" class="row g-3 mb-4" method="get" asp-controller="Inventario" asp-action="Index">
+    <div class="col-md-3 col-sm-6">
+        <label class="form-label">Fecha Inicio</label>
+        <input type="date" class="form-control" id="fechaInicio" name="Filtro.FechaInicio" value="@Model.Filtro.FechaInicio?.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <label class="form-label">Fecha Fin</label>
+        <input type="date" class="form-control" id="fechaFin" name="Filtro.FechaFin" value="@Model.Filtro.FechaFin?.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <label class="form-label">Tipo Movimiento</label>
+        <input type="text" class="form-control" id="tipoMovimiento" name="Filtro.TipoMovimiento" value="@Model.Filtro.TipoMovimiento">
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <label class="form-label">Nro Documento</label>
+        <input type="text" class="form-control" id="nroDocumento" name="Filtro.NroDocumento" value="@Model.Filtro.NroDocumento">
+    </div>
+    <div class="col-12 text-end">
+        <button type="submit" class="btn btn-primary me-2" id="btnBuscar">Buscar</button>
+        <button type="button" class="btn btn-success" id="btnNuevo">
+            <i class="bi bi-plus-circle me-1"></i> Nuevo
+        </button>
+    </div>
+</form>
+
+<!-- Tabla de resultados -->
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-sm shadow-sm rounded">
+        <thead class="bg-light text-secondary text-uppercase text-center small align-middle" style="font-size: 0.75rem;">
+            <tr>
+                <th>CIA</th>
+                <th>Compañía</th>
+                <th>Almacén</th>
+                <th>Movimiento</th>
+                <th>Tipo Doc</th>
+                <th>Documento</th>
+                <th>Item</th>
+                <th>Proveedor</th>
+                <th>Almacén Destino</th>
+                <th>Cantidad</th>
+                <th>Doc Ref 1</th>
+                <th>Doc Ref 2</th>
+                <th>Doc Ref 3</th>
+                <th>Doc Ref 4</th>
+                <th>Doc Ref 5</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaBody">
+            @if (!(Model?.ListaInventario?.Any() ?? false))
+            {
+                <tr>
+                    <td colspan="17">No existen registros para mostrar</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model.ListaInventario)
+                {
+                    <tr>
+                        <td>@item.COD_CIA</td>
+                        <td>@item.COMPANIA_VENTA_3</td>
+                        <td>@item.ALMACEN_VENTA</td>
+                        <td>@item.TIPO_MOVIMIENTO</td>
+                        <td>@item.TIPO_DOCUMENTO</td>
+                        <td>@item.NRO_DOCUMENTO</td>
+                        <td>@item.COD_ITEM_2</td>
+                        <td>@item.PROVEEDOR</td>
+                        <td>@item.ALMACEN_DESTINO</td>
+                        <td>@item.CANTIDAD</td>
+                        <td>@item.DOC_REF_1</td>
+                        <td>@item.DOC_REF_2</td>
+                        <td>@item.DOC_REF_3</td>
+                        <td>@item.DOC_REF_4</td>
+                        <td>@item.DOC_REF_5</td>
+                        <td>@item.FECHA_TRANSACCION?.ToString("yyyy-MM-dd")</td>
+                        <td class="text-center align-middle" style="white-space: nowrap;">
+                            <button type="button" class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model?.TotalPaginas > 1)
+{
+    <nav aria-label="Paginación">
+        <ul class="pagination justify-content-center mt-3">
+            @for (int i = 1; i <= Model.TotalPaginas; i++)
+            {
+                var url = Url.Action("Index", new
+                {
+                    PaginaActual = i,
+                    Filtro = new
+                    {
+                        FechaInicio = Model.Filtro.FechaInicio?.ToString("yyyy-MM-dd"),
+                        FechaFin = Model.Filtro.FechaFin?.ToString("yyyy-MM-dd"),
+                        TipoMovimiento = Model.Filtro.TipoMovimiento,
+                        NroDocumento = Model.Filtro.NroDocumento
+                    }
+                });
+
+                <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
+                    <a class="page-link" href="@url">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+<!-- Modal de Registro / Edición -->
+<div class="modal fade" id="modalInventario" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Registro de Inventario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formInventario">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Cód. CIA</label>
+                            <input type="text" class="form-control" name="COD_CIA">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Compañía Venta</label>
+                            <input type="text" class="form-control" name="COMPANIA_VENTA_3">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Almacén Venta</label>
+                            <input type="text" class="form-control" name="ALMACEN_VENTA">
+                        </div>
+                    </div>
+                    <!-- Puedes seguir agregando más campos según tu modelo -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
