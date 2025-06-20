@@ -78,5 +78,31 @@ namespace DINET.Prueba.Portal.Services.Implementaciones
                 throw new InvalidOperationException(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Proxy: Actualizar
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task Actualizar(MovInventarioDtoRequest request)
+        {
+            try
+            {
+                var response = await HttpClient.PutAsJsonAsync($"{BaseUrl}/Actualizar", request);
+                if (response.IsSuccessStatusCode)
+                {
+                    var resultado = await response.Content.ReadFromJsonAsync<BaseResponse>();
+                    if (resultado!.Success == false)
+                        throw new InvalidOperationException(resultado.ErrorMessage);
+                }
+                else
+                {
+                    throw new InvalidOperationException(response.ReasonPhrase);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+        }
     }
 }

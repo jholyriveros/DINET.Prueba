@@ -24,6 +24,13 @@ namespace DINET.Prueba.Services.Interfaces
         Task<BaseResponse> Insertar(MovInventarioDtoRequest request);
 
         /// <summary>
+        /// IService: Obtener por Id
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="request"></param>
+        Task<BaseResponseGeneric<MovInventarioDtoResponse>> ObtenerPorId(MovInventarioClaveDtoRequest request);
+
+        /// <summary>
         /// IService: Actualizar
         /// </summary>
         /// <param name="request"></param>

@@ -134,6 +134,73 @@ namespace DINET.Prueba.Repositories.Implementaciones
         }
 
         /// <summary>
+        /// Obtener por Id
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task<BaseResponse<Mov_Inventario>> ObtenerPorId(Mov_Inventario request)
+        {
+            var response = new BaseResponse<Mov_Inventario>();
+            Mov_Inventario movInventario = new Mov_Inventario();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = new SqlCommand("sp_ObtenerPorID", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@COD_CIA", request.COD_CIA);
+                    cmd.Parameters.AddWithValue("@COMPANIA_VENTA_3", request.COMPANIA_VENTA_3);
+                    cmd.Parameters.AddWithValue("@ALMACEN_VENTA", request.ALMACEN_VENTA);
+                    cmd.Parameters.AddWithValue("@TIPO_MOVIMIENTO", request.TIPO_MOVIMIENTO);
+                    cmd.Parameters.AddWithValue("@TIPO_DOCUMENTO", request.TIPO_DOCUMENTO);
+                    cmd.Parameters.AddWithValue("@NRO_DOCUMENTO", request.NRO_DOCUMENTO);
+                    cmd.Parameters.AddWithValue("@COD_ITEM_2", request.COD_ITEM_2);
+
+                    await conn.OpenAsync();
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            movInventario = new Mov_Inventario
+                            {
+                                COD_CIA = reader["COD_CIA"].ToString() ?? "",
+                                COMPANIA_VENTA_3 = reader["COMPANIA_VENTA_3"].ToString() ?? "",
+                                ALMACEN_VENTA = reader["ALMACEN_VENTA"].ToString() ?? "",
+                                TIPO_MOVIMIENTO = reader["TIPO_MOVIMIENTO"].ToString() ?? "",
+                                TIPO_DOCUMENTO = reader["TIPO_DOCUMENTO"].ToString() ?? "",
+                                NRO_DOCUMENTO = reader["NRO_DOCUMENTO"].ToString() ?? "",
+                                COD_ITEM_2 = reader["COD_ITEM_2"].ToString() ?? "",
+                                PROVEEDOR = reader["PROVEEDOR"]?.ToString(),
+                                ALMACEN_DESTINO = reader["ALMACEN_DESTINO"]?.ToString(),
+                                CANTIDAD = reader["CANTIDAD"] != DBNull.Value ? Convert.ToInt32(reader["CANTIDAD"]) : null,
+                                DOC_REF_1 = reader["DOC_REF_1"]?.ToString(),
+                                DOC_REF_2 = reader["DOC_REF_2"]?.ToString(),
+                                DOC_REF_3 = reader["DOC_REF_3"]?.ToString(),
+                                DOC_REF_4 = reader["DOC_REF_4"]?.ToString(),
+                                DOC_REF_5 = reader["DOC_REF_5"]?.ToString(),
+                                FECHA_TRANSACCION = reader["FECHA_TRANSACCION"] != DBNull.Value ? Convert.ToDateTime(reader["FECHA_TRANSACCION"]) : null
+                            };
+                        }
+                    }
+                }
+
+                response.Data = movInventario;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                var errorMsg = $"Error al obtener por Id: {ex.Message}";
+                response.Success = false;
+                response.ErrorMessage = errorMsg;
+
+                Utilitarios.LogHelper.RegistrarLog(errorMsg);
+            }
+
+            return response;
+        }
+
+        /// <summary>
         /// Actualizar
         /// </summary>
         /// <param name="request"></param>

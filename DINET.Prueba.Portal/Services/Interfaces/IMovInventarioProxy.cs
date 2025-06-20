@@ -22,9 +22,9 @@ namespace DINET.Prueba.Portal.Services.Interfaces
         Task Insertar(MovInventarioDtoRequest request);
 
         /// <summary>
-        /// IProxy: Insertar
+        /// IProxy: Actualizar
         /// </summary>
         /// <param name="request"></param>
-        //Task Insertar(MovInventarioDtoRequest request);
+        Task Actualizar(MovInventarioDtoRequest request);
     }
 }

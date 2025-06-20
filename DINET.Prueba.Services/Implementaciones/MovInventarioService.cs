@@ -5,6 +5,7 @@ using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
 using DINET.Prueba.Repositories.Interfaces;
 using DINET.Prueba.Services.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DINET.Prueba.Services.Implementaciones
 {
@@ -95,6 +96,48 @@ namespace DINET.Prueba.Services.Implementaciones
             {
                 response.Success = false;
                 response.ErrorMessage = "Service Error: " + ex.Message;
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Service: Obtener por Id
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="request"></param>
+        public async Task<BaseResponseGeneric<MovInventarioDtoResponse>> ObtenerPorId(MovInventarioClaveDtoRequest request)
+        {
+            var response = new BaseResponseGeneric<MovInventarioDtoResponse>();
+
+            try
+            {
+                var repositoryResponse = await _repository.ObtenerPorId(new Mov_Inventario
+                {
+                    COD_CIA = request.COD_CIA,
+                    COMPANIA_VENTA_3 = request.COMPANIA_VENTA_3,
+                    ALMACEN_VENTA = request.ALMACEN_VENTA,
+                    TIPO_MOVIMIENTO = request.TIPO_MOVIMIENTO,
+                    TIPO_DOCUMENTO = request.TIPO_DOCUMENTO,
+                    NRO_DOCUMENTO = request.NRO_DOCUMENTO,
+                    COD_ITEM_2 = request.COD_ITEM_2
+                });
+
+                if (repositoryResponse.Success)
+                {
+                    response.Data = _mapper.Map<MovInventarioDtoResponse>(repositoryResponse.Data);
+                    response.Success = true;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.ErrorMessage = $"Repository Error: {repositoryResponse.ErrorMessage}";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.ErrorMessage = $"Service Error: {ex.Message}";
             }
 
             return response;

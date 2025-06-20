@@ -17,6 +17,7 @@ namespace DINET.Prueba.Services.Profiles
         {
             CreateMap<MovInventarioDtoRequest, Mov_Inventario>();
             CreateMap<MovInventarioFiltroDtoRequest, Mov_InventarioFiltro>();
+            CreateMap<MovInventarioClaveDtoRequest, Mov_Inventario>();
             CreateMap<Mov_Inventario, MovInventarioDtoResponse>();
         }
     }

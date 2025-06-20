@@ -3,6 +3,7 @@ using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
 using DINET.Prueba.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DINET.Prueba.ApiRest.Controllers.Inventario
 {
@@ -45,6 +46,18 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
         public async Task<IActionResult> Insertar(MovInventarioDtoRequest request)
         {
             var response = await _service.Insertar(request);
+            return response.Success ? Ok(response) : BadRequest(response);
+        }
+
+        /// <summary>
+        /// ApiRest: Obtener Por Id
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("ObtenerPorId")]
+        public async Task<IActionResult> ObtenerPorId(MovInventarioClaveDtoRequest request)
+        {
+            var response = await _service.ObtenerPorId(request);
             return response.Success ? Ok(response) : BadRequest(response);
         }
 

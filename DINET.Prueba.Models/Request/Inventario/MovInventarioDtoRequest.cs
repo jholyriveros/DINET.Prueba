@@ -137,4 +137,52 @@ namespace DINET.Prueba.Models.Request.Inventario
             return dict;
         }
     }
+
+    /// <summary>
+    /// MovInventario Clave Dto Request
+    /// </summary>
+    public class MovInventarioClaveDtoRequest
+    {
+        /// <summary>
+        /// COD_CIA
+        /// </summary>
+        [Required]
+        public string COD_CIA { get; set; } = default!;
+
+        /// <summary>
+        /// COMPANIA_VENTA_3
+        /// </summary>
+        [Required]
+        public string COMPANIA_VENTA_3 { get; set; } = default!;
+
+        /// <summary>
+        /// ALMACEN_VENTA
+        /// </summary>
+        [Required]
+        public string ALMACEN_VENTA { get; set; } = default!;
+
+        /// <summary>
+        /// TIPO_MOVIMIENTO
+        /// </summary>
+        [Required]
+        public string TIPO_MOVIMIENTO { get; set; } = default!;
+
+        /// <summary>
+        /// TIPO_DOCUMENTO
+        /// </summary>
+        [Required]
+        public string TIPO_DOCUMENTO { get; set; } = default!;
+
+        /// <summary>
+        /// NRO_DOCUMENTO
+        /// </summary>
+        [Required]
+        public string NRO_DOCUMENTO { get; set; } = default!;
+
+        /// <summary>
+        /// COD_ITEM_2
+        /// </summary>
+        [Required]
+        public string COD_ITEM_2 { get; set; } = default!;
+    }
 }
