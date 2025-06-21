@@ -3,10 +3,10 @@ using DINET.Prueba.Entities;
 using DINET.Prueba.Models.Request.Inventario;
 using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
-using DINET.Prueba.Repositories.Interfaces;
-using DINET.Prueba.Services.Interfaces;
+using DINET.Prueba.Repositories.Interfaces.Inventario;
+using DINET.Prueba.Services.Interfaces.Inventario;
 
-namespace DINET.Prueba.Services.Implementaciones
+namespace DINET.Prueba.Services.Implementaciones.Inventario
 {
     /// <summary>
     /// MovInventario Service

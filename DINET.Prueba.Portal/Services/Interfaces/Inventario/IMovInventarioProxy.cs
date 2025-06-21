@@ -1,7 +1,7 @@
 ﻿using DINET.Prueba.Models.Request.Inventario;
 using DINET.Prueba.Models.Response.Inventario;
 
-namespace DINET.Prueba.Portal.Services.Interfaces
+namespace DINET.Prueba.Portal.Services.Interfaces.Inventario
 {
     /// <summary>
     /// IMovInventario Proxy

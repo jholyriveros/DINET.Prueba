@@ -2,7 +2,7 @@
 using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
 
-namespace DINET.Prueba.Services.Interfaces
+namespace DINET.Prueba.Services.Interfaces.Inventario
 {
     /// <summary>
     /// IMovInventario Service

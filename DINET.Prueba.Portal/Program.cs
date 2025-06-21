@@ -1,8 +1,8 @@
 using Serilog.Events;
 using Serilog;
 using DINET.Prueba.Helpers;
-using DINET.Prueba.Portal.Services.Interfaces;
-using DINET.Prueba.Portal.Services.Implementaciones;
+using DINET.Prueba.Portal.Services.Interfaces.Inventario;
+using DINET.Prueba.Portal.Services.Implementaciones.Inventario;
 
 var builder = WebApplication.CreateBuilder(args);
 

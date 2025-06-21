@@ -2,9 +2,9 @@
 using DINET.Prueba.Models.Request.Inventario;
 using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
-using DINET.Prueba.Portal.Services.Interfaces;
+using DINET.Prueba.Portal.Services.Interfaces.Inventario;
 
-namespace DINET.Prueba.Portal.Services.Implementaciones
+namespace DINET.Prueba.Portal.Services.Implementaciones.Inventario
 {
     public class MovInventarioProxy : RestBase, IMovInventarioProxy
     {

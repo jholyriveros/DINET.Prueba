@@ -1,7 +1,7 @@
 ﻿using DINET.Prueba.Entities;
 using DINET.Prueba.Entities.Base;
 
-namespace DINET.Prueba.Repositories.Interfaces
+namespace DINET.Prueba.Repositories.Interfaces.Inventario
 {
     /// <summary>
     /// Interfaz para el repositorio de movimientos de inventario

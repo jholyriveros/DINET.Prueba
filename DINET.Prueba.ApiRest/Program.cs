@@ -1,7 +1,7 @@
-using DINET.Prueba.Repositories.Implementaciones;
-using DINET.Prueba.Repositories.Interfaces;
-using DINET.Prueba.Services.Implementaciones;
-using DINET.Prueba.Services.Interfaces;
+using DINET.Prueba.Repositories.Implementaciones.Inventario;
+using DINET.Prueba.Repositories.Interfaces.Inventario;
+using DINET.Prueba.Services.Implementaciones.Inventario;
+using DINET.Prueba.Services.Interfaces.Inventario;
 using DINET.Prueba.Services.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);

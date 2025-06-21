@@ -1,11 +1,11 @@
 ﻿using DINET.Prueba.Entities.Base;
 using DINET.Prueba.Entities;
-using DINET.Prueba.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using DINET.Prueba.Repositories.Interfaces.Inventario;
 
-namespace DINET.Prueba.Repositories.Implementaciones
+namespace DINET.Prueba.Repositories.Implementaciones.Inventario
 {
     public class MovInventarioRepository : IMovInventarioRepository
     {

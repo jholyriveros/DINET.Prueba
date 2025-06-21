@@ -1,7 +1,7 @@
 ﻿using DINET.Prueba.Models.Request.Inventario;
 using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
-using DINET.Prueba.Services.Interfaces;
+using DINET.Prueba.Services.Interfaces.Inventario;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
