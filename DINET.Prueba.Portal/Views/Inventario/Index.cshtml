@@ -173,8 +173,11 @@
 @await Html.PartialAsync("~/Views/Shared/_ModalConfirmacion.cshtml")
 <!-- End Confirmación -->
 
+
+
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/funcionesInventario.js"></script>
 
     <script>
         const urlCrearParcial = '@Url.Action("CrearParcial", "Inventario")';
@@ -262,3 +265,4 @@
         });
     </script>
 }
+

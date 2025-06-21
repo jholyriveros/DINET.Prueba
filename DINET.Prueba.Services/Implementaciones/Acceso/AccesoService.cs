@@ -46,8 +46,16 @@ namespace DINET.Prueba.Services.Implementaciones.Acceso
 
                 if (repositoryResponse.Success)
                 {
-                    response.Data = _mapper.Map<UsuarioDtoResponse>(repositoryResponse.Data);
-                    response.Success = true;
+                    if (repositoryResponse.Data?.Codigo == 0)
+                    {
+                        response.Success = false;
+                        response.ErrorMessage = repositoryResponse.Data?.Mensaje;
+                    }
+                    else
+                    {
+                        response.Data = _mapper.Map<UsuarioDtoResponse>(repositoryResponse.Data);
+                        response.Success = true;
+                    }   
                 }
                 else
                 {

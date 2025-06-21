@@ -47,10 +47,10 @@ namespace DINET.Prueba.Repositories.Implementaciones.Acceso
                             user = new Usuarios
                             {
                                 Codigo = Convert.ToInt32(reader["Codigo"]),
-                                Mensaje = reader["Mensaje"].ToString() ?? "",
-                                IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
-                                Nombre = reader["Nombre"].ToString() ?? "",
-                                Usuario = reader["Usuario"].ToString() ?? ""
+                                Mensaje = reader["Mensaje"]?.ToString() ?? "",
+                                IdUsuario = reader["IdUsuario"] != DBNull.Value ? Convert.ToInt32(reader["IdUsuario"]) : (int?)null,
+                                Nombre = reader["Nombre"]?.ToString(),
+                                Usuario = reader["Usuario"]?.ToString()
                             };
                         }
                     }

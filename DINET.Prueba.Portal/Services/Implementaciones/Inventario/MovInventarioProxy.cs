@@ -11,7 +11,7 @@ namespace DINET.Prueba.Portal.Services.Implementaciones.Inventario
         private readonly IHttpContextAccessor? _httpContextAccessor;
 
         /// <summary>
-        /// Instanciar
+        /// Constructor
         /// </summary>
         /// <param name="httpClient"></param>
         /// <param name="httpContextAccessor"></param>

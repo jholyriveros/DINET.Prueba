@@ -3,6 +3,8 @@ using Serilog;
 using DINET.Prueba.Helpers;
 using DINET.Prueba.Portal.Services.Interfaces.Inventario;
 using DINET.Prueba.Portal.Services.Implementaciones.Inventario;
+using DINET.Prueba.Portal.Services.Interfaces.Acceso;
+using DINET.Prueba.Portal.Services.Implementaciones.Acceso;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,10 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 #region[Inyectar dependecias]
 builder.Services.AddProxy<IMovInventarioProxy, MovInventarioProxy>("ApiHttpClientDinet");
+builder.Services.AddProxy<IAccesoProxy, AccesoProxy>("ApiHttpClientDinet");
 #endregion
+
+builder.Services.AddSession();
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -41,12 +46,14 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 
+app.UseSession();
+
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Inventario}/{action=Index}/{id?}");
+    pattern: "{controller=Acceso}/{action=Index}/{id?}");
 
 app.Run();

@@ -8,7 +8,7 @@
         /// <summary>
         /// Id Usuario
         /// </summary>
-        public int IdUsuario { get; set; } = default!;
+        public int? IdUsuario { get; set; } = default!;
 
         /// <summary>
         /// Nombre
