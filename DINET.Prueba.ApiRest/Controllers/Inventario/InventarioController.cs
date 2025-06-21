@@ -3,12 +3,11 @@ using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
 using DINET.Prueba.Services.Interfaces.Inventario;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace DINET.Prueba.ApiRest.Controllers.Inventario
 {
     /// <summary>
-    /// Creador de API
+    /// Inventario Controller
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -17,7 +16,7 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
         private readonly IMovInventarioService _service;
 
         /// <summary>
-        /// Instanciar
+        /// Constructor
         /// </summary>
         /// <param name="service"></param>
         public InventarioController(IMovInventarioService service)

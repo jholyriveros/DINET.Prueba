@@ -17,7 +17,7 @@ namespace DINET.Prueba.Services.Implementaciones.Inventario
         private readonly IMovInventarioRepository _repository;
 
         /// <summary>
-        /// Instanciar
+        /// Constructor
         /// </summary>
         /// <param name="mapper"></param>
         /// <param name="repository"></param>

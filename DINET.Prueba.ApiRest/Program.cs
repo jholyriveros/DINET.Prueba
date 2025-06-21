@@ -1,6 +1,10 @@
+using DINET.Prueba.Repositories.Implementaciones.Acceso;
 using DINET.Prueba.Repositories.Implementaciones.Inventario;
+using DINET.Prueba.Repositories.Interfaces.Acceso;
 using DINET.Prueba.Repositories.Interfaces.Inventario;
+using DINET.Prueba.Services.Implementaciones.Acceso;
 using DINET.Prueba.Services.Implementaciones.Inventario;
+using DINET.Prueba.Services.Interfaces.Acceso;
 using DINET.Prueba.Services.Interfaces.Inventario;
 using DINET.Prueba.Services.Profiles;
 
@@ -15,6 +19,9 @@ builder.Services.AddAutoMapper(config =>
 #region[Inyectar dependencias]
 builder.Services.AddTransient<IMovInventarioRepository, MovInventarioRepository>();
 builder.Services.AddTransient<IMovInventarioService, MovInventarioService>();
+
+builder.Services.AddTransient<IAccesoRepository, AccesoRepository>();
+builder.Services.AddTransient<IAccesoService, AccesoService>();
 #endregion
 
 builder.Services.AddControllers();

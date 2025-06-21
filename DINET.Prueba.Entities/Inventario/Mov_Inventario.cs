@@ -1,7 +1,7 @@
 ﻿namespace DINET.Prueba.Entities.Inventario
 {
     /// <summary>
-    /// Entidad que representa un movimiento de inventario.
+    /// Entidad que representa un movimiento de inventario
     /// </summary>
     public class Mov_Inventario
     {
