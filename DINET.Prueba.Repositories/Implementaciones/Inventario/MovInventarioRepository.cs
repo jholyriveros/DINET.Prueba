@@ -1,9 +1,9 @@
 ﻿using DINET.Prueba.Entities.Base;
-using DINET.Prueba.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using DINET.Prueba.Repositories.Interfaces.Inventario;
+using DINET.Prueba.Entities.Inventario;
 
 namespace DINET.Prueba.Repositories.Implementaciones.Inventario
 {

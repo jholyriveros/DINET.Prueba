@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DINET.Prueba.Entities;
+using DINET.Prueba.Entities.Inventario;
 using DINET.Prueba.Models.Request.Inventario;
 using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;

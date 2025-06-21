@@ -1,7 +1,7 @@
-﻿using DINET.Prueba.Entities;
-using DINET.Prueba.Models.Request.Inventario;
+﻿using DINET.Prueba.Models.Request.Inventario;
 using DINET.Prueba.Models.Response.Inventario;
 using AutoMapper;
+using DINET.Prueba.Entities.Inventario;
 
 namespace DINET.Prueba.Services.Profiles
 {

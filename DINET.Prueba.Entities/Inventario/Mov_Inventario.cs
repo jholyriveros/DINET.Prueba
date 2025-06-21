@@ -1,4 +1,4 @@
-﻿namespace DINET.Prueba.Entities
+﻿namespace DINET.Prueba.Entities.Inventario
 {
     /// <summary>
     /// Entidad que representa un movimiento de inventario.

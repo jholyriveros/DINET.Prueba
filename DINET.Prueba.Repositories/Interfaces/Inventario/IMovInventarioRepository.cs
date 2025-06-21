@@ -1,5 +1,5 @@
-﻿using DINET.Prueba.Entities;
-using DINET.Prueba.Entities.Base;
+﻿using DINET.Prueba.Entities.Base;
+using DINET.Prueba.Entities.Inventario;
 
 namespace DINET.Prueba.Repositories.Interfaces.Inventario
 {
