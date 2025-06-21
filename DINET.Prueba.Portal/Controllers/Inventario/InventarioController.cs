@@ -48,6 +48,11 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
         [HttpGet]
         public IActionResult Index(InventarioViewModel model)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Usuario")))
+            {
+                return RedirectToAction("Index", "Acceso");
+            }
+
             // Establecer fechas por defecto si no se enviaron en el filtro para mostrar en el view
             if (!model.Filtro.FechaInicio.HasValue || !model.Filtro.FechaFin.HasValue)
             {

@@ -19,12 +19,25 @@ namespace DINET.Prueba.Portal.Controllers.Acceso
             _proxy = proxy;
         }
 
+        /// <summary>
+        /// Index
+        /// </summary>
         [HttpGet]
         public IActionResult Index()
         {
-            return View("~/Views/Acceso/Login.cshtml");
+            // Valores por defecto para pruebas
+            var model = new UsuarioDtoRequest
+            {
+                Usuario = "admin" ,
+                Clave = "admin"
+            };
+
+            return View("~/Views/Acceso/Login.cshtml", model);
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Login(UsuarioDtoRequest request)
         {
@@ -51,6 +64,16 @@ namespace DINET.Prueba.Portal.Controllers.Acceso
             {
                 return Json(new { success = false, message = "Ocurrió un error al iniciar sesión." });
             }
+        }
+
+        /// <summary>
+        /// Logout
+        /// </summary>
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Acceso");
         }
     }
 }
