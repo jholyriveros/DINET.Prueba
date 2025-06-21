@@ -32,6 +32,7 @@
         </button>
     </div>
 </form>
+<!-- End Filtros -->
 
 <!-- Tabla de resultados -->
 <div class="table-responsive">
@@ -106,7 +107,19 @@
                                 <i class="bi bi-pencil-square"></i>
                             </button>
 
-                            <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-danger btn-eliminar"
+                                    data-model='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new
+                                {
+                                    COD_CIA = item.COD_CIA,
+                                    COMPANIA_VENTA_3 = item.COMPANIA_VENTA_3,
+                                    ALMACEN_VENTA = item.ALMACEN_VENTA,
+                                    TIPO_MOVIMIENTO = item.TIPO_MOVIMIENTO,
+                                    TIPO_DOCUMENTO = item.TIPO_DOCUMENTO,
+                                    NRO_DOCUMENTO = item.NRO_DOCUMENTO,
+                                    COD_ITEM_2 = item.COD_ITEM_2
+                                }))'
+                                    title="Eliminar">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>
@@ -139,9 +152,10 @@
         </ul>
     </nav>
 }
+
 <!-- End Paginador -->
 
-<!-- Modal de Registro / Edición -->
+<!-- Modal Insertar / Actualizar -->
 <div class="modal fade" id="modalInventario" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -149,20 +163,25 @@
         </div>
     </div>
 </div>
-<!-- End Modal de Registro / Edición -->
+<!-- End Modal Insertar / Actualizar -->
 
-<!-- Modal de Mensaje -->
+<!-- Modal Mensaje -->
 @await Html.PartialAsync("~/Views/Shared/_ModalMensaje.cshtml")
-<!-- End Modal de Mensaje -->
+<!-- End Modal Mensaje -->
+
+<!-- Modal Confirmación -->
+@await Html.PartialAsync("~/Views/Shared/_ModalConfirmacion.cshtml")
+<!-- End Confirmación -->
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 
     <script>
         const urlCrearParcial = '@Url.Action("CrearParcial", "Inventario")';
+        const urlObtenerPorId = '@Url.Action("ObtenerPorId", "Inventario")';
 
-        // Guardar registro
-               $(document).on("click", "#btnGuardar", function (e) {
+        // Insertar / Actualizar registro
+        $(document).on("click", "#btnGuardar", function (e) {
             e.preventDefault();
 
             var form = $("#formInventario");
@@ -190,16 +209,14 @@
                                 location.reload();
                             }, { once: true });
                     } else {
-                        // 🚨 Reemplaza el contenido del modal
+                        // Reemplazar el contenido del modal
                         $("#modalInventario .modal-content").html(result);
 
-                        // 🚨 Reparsea validaciones
+                        // validaciones
                         const nuevoForm = $("#formInventario");
                         if ($.validator && $.validator.unobtrusive) {
                             $.validator.unobtrusive.parse(nuevoForm);
                         }
-
-                        // No hace falta volver a registrar el evento gracias a .on()
                     }
                 },
                 error: function () {
@@ -208,69 +225,38 @@
             });
         });
 
-        // Abrir modal para editar
-        $(document).on("click", ".btn-editar", function () {
-            const data = $(this).data("model"); // contiene las claves
+        // Eliminar registro
+        let dataEliminar = null;
 
-            $.ajax({              
-                url: '@Url.Action("ObtenerPorId", "Inventario")',
+        $(document).on("click", ".btn-eliminar", function () {
+            dataEliminar = $(this).data("model");
+
+            const modal = new bootstrap.Modal(document.getElementById("modalConfirmarEliminar"));
+            modal.show();
+        });
+
+        $(document).on("click", "#btnConfirmarEliminar", function () {
+            if (!dataEliminar) return;
+
+            $.ajax({
+                url: '@Url.Action("Eliminar", "Inventario")',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify(data),
+                data: JSON.stringify(dataEliminar),
                 success: function (result) {
-                    if (!result) {
-                        mostrarModalMensaje("No se pudo obtener el registro.");
-                        return;
+                    const modal = bootstrap.Modal.getInstance(document.getElementById("modalConfirmarEliminar"));
+                    modal.hide();
+
+                    if (result.success) {
+                        mostrarModalMensaje(result.message);
+                        document.getElementById("modalMensaje")
+                            .addEventListener("hidden.bs.modal", () => location.reload(), { once: true });
+                    } else {
+                        mostrarModalMensaje(result.message || "No se pudo eliminar.");
                     }
-
-                    const datos = result;
-
-                    // Recorre y llenar campos
-                    for (const campo in datos) {
-                        const campoMayus = campo.toUpperCase();
-                        const $input = $("#formInventario").find(`[name='${campoMayus}']`);
-
-                        //console.log(`Campo: ${campo} → Buscando como: ${campoMayus} → Encontrado: ${$input.length > 0}`);
-
-                        if ($input.length > 0) {
-                            const tipo = $input.attr("type");
-                            const valor = datos[campo];
-
-                            if (tipo === "date" && valor) {
-                                $input.val(valor.substring(0, 10));
-                            } else {
-                                $input.val(valor);
-                            }
-                        } else {
-                            console.warn(`No se encontró el campo '${campoMayus}' en el formulario.`);
-                        }
-                    }
-
-                    // Bloquear campos clave
-                    const claves = [
-                        "COD_CIA",
-                        "COMPANIA_VENTA_3",
-                        "ALMACEN_VENTA",
-                        "TIPO_MOVIMIENTO",
-                        "TIPO_DOCUMENTO",
-                        "NRO_DOCUMENTO",
-                        "COD_ITEM_2"
-                    ];
-                    claves.forEach(campo => {
-                        $("#formInventario").find(`[name='${campo}']`)
-                            .prop("readonly", true)
-                            .addClass("bg-light"); // opcional: visualmente se ve desactivado
-                    });
-
-                    // Modo edición
-                    $("#formInventario").data("modo", "editar");
-
-                    // Mostrar modal
-                    const modal = new bootstrap.Modal(document.getElementById("modalInventario"));
-                    modal.show();
                 },
                 error: function () {
-                    mostrarModalMensaje("Ocurrió un error al obtener los datos del inventario.");
+                    mostrarModalMensaje("Ocurrió un error al eliminar.");
                 }
             });
         });

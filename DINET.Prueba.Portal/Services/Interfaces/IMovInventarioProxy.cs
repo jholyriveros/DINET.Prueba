@@ -32,5 +32,11 @@ namespace DINET.Prueba.Portal.Services.Interfaces
         /// </summary>
         /// <param name="request"></param>
         Task Actualizar(MovInventarioDtoRequest request);
+
+        /// <summary>
+        /// IProxy: Eliminar
+        /// </summary>
+        /// <param name="request"></param>
+        Task Eliminar(MovInventarioClaveDtoRequest request);
     }
 }

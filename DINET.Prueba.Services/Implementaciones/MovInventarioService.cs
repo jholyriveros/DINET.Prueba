@@ -5,7 +5,6 @@ using DINET.Prueba.Models.Response.Base;
 using DINET.Prueba.Models.Response.Inventario;
 using DINET.Prueba.Repositories.Interfaces;
 using DINET.Prueba.Services.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DINET.Prueba.Services.Implementaciones
 {
@@ -196,7 +195,7 @@ namespace DINET.Prueba.Services.Implementaciones
         /// Service: Eliminar
         /// </summary>
         /// <param name="request"></param>
-        public async Task<BaseResponse> Eliminar(MovInventarioDtoRequest request)
+        public async Task<BaseResponse> Eliminar(MovInventarioClaveDtoRequest request)
         {
             var response = new BaseResponse();
 

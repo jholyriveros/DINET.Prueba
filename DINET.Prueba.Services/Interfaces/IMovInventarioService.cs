@@ -42,6 +42,6 @@ namespace DINET.Prueba.Services.Interfaces
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<BaseResponse> Eliminar(MovInventarioDtoRequest request);
+        Task<BaseResponse> Eliminar(MovInventarioClaveDtoRequest request);
     }
 }

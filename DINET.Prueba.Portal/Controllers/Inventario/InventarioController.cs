@@ -145,5 +145,22 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
                 return PartialView("_ModalInventarioPartial", model);
             }
         }
+
+        /// <summary>
+        /// Eliminar
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Eliminar([FromBody] MovInventarioClaveDtoRequest request)
+        {
+            try
+            {
+                await _proxy.Eliminar(request);
+                return Json(new { success = true, message = "Registro eliminado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
     }
 }

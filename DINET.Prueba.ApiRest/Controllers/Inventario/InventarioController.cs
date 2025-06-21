@@ -77,7 +77,7 @@ namespace DINET.Prueba.ApiRest.Controllers.Inventario
         /// </summary>
         /// <param name="request"></param>
         [HttpDelete("Eliminar")]
-        public async Task<IActionResult> Eliminar(MovInventarioDtoRequest request)
+        public async Task<IActionResult> Eliminar(MovInventarioClaveDtoRequest request)
         {
             var response = await _service.Eliminar(request);
             return response.Success ? Ok(response) : BadRequest(response);

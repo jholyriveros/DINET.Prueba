@@ -135,5 +135,39 @@ namespace DINET.Prueba.Portal.Services.Implementaciones
                 throw new InvalidOperationException(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Proxy: Eliminar
+        /// </summary>
+        /// <param name="request"></param>
+        public async Task Eliminar(MovInventarioClaveDtoRequest request)
+        {
+            try
+            {
+                var httpRequest = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = new Uri($"{HttpClient.BaseAddress}{BaseUrl}/Eliminar"),
+                    Content = JsonContent.Create(request)
+                };
+
+                var response = await HttpClient.SendAsync(httpRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var resultado = await response.Content.ReadFromJsonAsync<BaseResponse>();
+                    if (resultado?.Success == false)
+                        throw new InvalidOperationException(resultado.ErrorMessage);
+                }
+                else
+                {
+                    throw new InvalidOperationException(response.ReasonPhrase ?? "Error al eliminar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error al eliminar: " + ex.Message);
+            }
+        }
     }
 }
