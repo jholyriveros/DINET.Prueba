@@ -11,36 +11,16 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
     /// </summary>
     public class InventarioController : Controller
     {
-        #region [Campos privados (inyección de dependencias)]
         private readonly IMovInventarioProxy _proxy;
-        private readonly IConfiguration _configuration;
-        private readonly IWebHostEnvironment _enviroment;
-        private readonly ILogger<InventarioController> _logger;
-        private readonly IHttpContextAccessor? _httpContextAccessor;
-        #endregion
 
-        #region[Constructor (inyección de dependencias)]
         /// <summary>
-        /// Instanciar
+        /// Constructor
         /// </summary>
         /// <param name="proxy"></param>
-        /// <param name="configuration"></param>
-        /// <param name="env"></param>
-        /// <param name="logger"></param>
-        /// <param name="httpContextAccessor"></param>
-        public InventarioController(IMovInventarioProxy proxy,
-                                    IConfiguration configuration,
-                                    IWebHostEnvironment env,
-                                    ILogger<InventarioController> logger,
-                                    IHttpContextAccessor httpContextAccessor)
+        public InventarioController(IMovInventarioProxy proxy)
         {
             _proxy = proxy;
-            _configuration = configuration;
-            _enviroment = env;
-            _logger = logger;
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
-        #endregion
 
         /// <summary>
         /// Index

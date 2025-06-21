@@ -23,12 +23,11 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.0-preview1.25120.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DINET.Prueba.Common\DINET.Prueba.Common.csproj" />
-    <ProjectReference Include="..\DINET.Prueba.DataAccess\DINET.Prueba.DataAccess.csproj" />
     <ProjectReference Include="..\DINET.Prueba.Entities\DINET.Prueba.Entities.csproj" />
     <ProjectReference Include="..\DINET.Prueba.Helpers\DINET.Prueba.Helpers.csproj" />
   </ItemGroup>

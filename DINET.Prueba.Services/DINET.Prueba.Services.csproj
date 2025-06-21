@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DINET.Prueba.DataAccess\DINET.Prueba.DataAccess.csproj" />
     <ProjectReference Include="..\DINET.Prueba.Models\DINET.Prueba.Models.csproj" />
     <ProjectReference Include="..\DINET.Prueba.Repositories\DINET.Prueba.Repositories.csproj" />
   </ItemGroup>

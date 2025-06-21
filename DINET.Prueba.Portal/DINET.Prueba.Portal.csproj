@@ -246,7 +246,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DINET.Prueba.Common\DINET.Prueba.Common.csproj" />
     <ProjectReference Include="..\DINET.Prueba.Helpers\DINET.Prueba.Helpers.csproj" />
     <ProjectReference Include="..\DINET.Prueba.Models\DINET.Prueba.Models.csproj" />
     <ProjectReference Include="..\DINET.Prueba.ViewModels\DINET.Prueba.ViewModels.csproj" />
