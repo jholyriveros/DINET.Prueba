@@ -62,16 +62,47 @@ namespace DINET.Prueba.Portal.Services.Implementaciones
             try
             {
                 var response = await HttpClient.PostAsJsonAsync($"{BaseUrl}/Insertar", request);
+
+                var result = await response.Content.ReadFromJsonAsync<BaseResponse>();
+
                 if (response.IsSuccessStatusCode)
                 {
-                    var resultado = await response.Content.ReadFromJsonAsync<BaseResponse>();
-                    if (resultado!.Success == false)
-                        throw new InvalidOperationException(resultado.ErrorMessage);
+                    if (result!.Success == false)
+                        throw new InvalidOperationException(result.ErrorMessage);
                 }
                 else
                 {
-                    throw new InvalidOperationException(response.ReasonPhrase);
+                    var mensaje = result?.ErrorMessage ?? "Error inesperado al insertar.";
+                    throw new InvalidOperationException(mensaje);
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Proxy: Obtener Por Id
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<MovInventarioDtoResponse> ObtenerPorId(MovInventarioClaveDtoRequest request)
+        {
+            try
+            {
+                var response = await HttpClient.PostAsJsonAsync($"{BaseUrl}/ObtenerPorId", request);
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content
+                    .ReadFromJsonAsync<BaseResponseGeneric<MovInventarioDtoResponse>>();
+
+                if (result!.Success == false)
+                {
+                    throw new InvalidOperationException(result.ErrorMessage);
+                }
+
+                return result.Data!;
             }
             catch (Exception ex)
             {

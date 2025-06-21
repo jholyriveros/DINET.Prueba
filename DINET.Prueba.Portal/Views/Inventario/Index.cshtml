@@ -90,9 +90,22 @@
                         <td>@item.DOC_REF_5</td>
                         <td>@item.FECHA_TRANSACCION?.ToString("yyyy-MM-dd")</td>
                         <td class="text-center align-middle" style="white-space: nowrap;">
-                            <button type="button" class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-primary me-1 btn-editar"
+                                    data-model='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(new
+                                {
+                                    COD_CIA = item.COD_CIA,
+                                    COMPANIA_VENTA_3 = item.COMPANIA_VENTA_3,
+                                    ALMACEN_VENTA = item.ALMACEN_VENTA,
+                                    TIPO_MOVIMIENTO = item.TIPO_MOVIMIENTO,
+                                    TIPO_DOCUMENTO = item.TIPO_DOCUMENTO,
+                                    NRO_DOCUMENTO = item.NRO_DOCUMENTO,
+                                    COD_ITEM_2 = item.COD_ITEM_2
+                                }))'
+                                    title="Editar">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
+
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar">
                                 <i class="bi bi-trash"></i>
                             </button>
@@ -146,42 +159,118 @@
     @await Html.PartialAsync("_ValidationScriptsPartial")
 
     <script>
+        const urlCrearParcial = '@Url.Action("CrearParcial", "Inventario")';
+
         // Guardar registro
-        $("#btnGuardar").click(function (e) {
+               $(document).on("click", "#btnGuardar", function (e) {
             e.preventDefault();
 
             var form = $("#formInventario");
 
-            if (!form.valid()) {
-                return;
-            }
+            // Valida
+            if (!form.valid()) return;
 
             var formData = form.serialize();
+            var modo = form.data("modo") || "insertar";
+
+            var url = (modo === "editar")
+                ? '@Url.Action("Actualizar", "Inventario")'
+                : '@Url.Action("Insertar", "Inventario")';
 
             $.ajax({
-                url: '@Url.Action("Insertar", "Inventario")',
+                url: url,
                 type: 'POST',
                 data: formData,
                 success: function (result) {
                     if (result.success) {
-                        // Ocultar modal
                         $("#modalInventario").modal("hide");
-
-                        // Mostrar modal mensaje
                         mostrarModalMensaje(result.message);
-
-                        // Recargar al cerrar el modal de mensaje
-                        var modal = document.getElementById("modalMensaje");
-                        modal.addEventListener('hidden.bs.modal', function () {
-                            location.reload();
-                        }, { once: true });
+                        document.getElementById("modalMensaje")
+                            .addEventListener("hidden.bs.modal", function () {
+                                location.reload();
+                            }, { once: true });
                     } else {
-                        // devuelve modal con errores de validación
+                        // 🚨 Reemplaza el contenido del modal
                         $("#modalInventario .modal-content").html(result);
+
+                        // 🚨 Reparsea validaciones
+                        const nuevoForm = $("#formInventario");
+                        if ($.validator && $.validator.unobtrusive) {
+                            $.validator.unobtrusive.parse(nuevoForm);
+                        }
+
+                        // No hace falta volver a registrar el evento gracias a .on()
                     }
                 },
                 error: function () {
                     mostrarModalMensaje("Ocurrió un error inesperado al guardar.");
+                }
+            });
+        });
+
+        // Abrir modal para editar
+        $(document).on("click", ".btn-editar", function () {
+            const data = $(this).data("model"); // contiene las claves
+
+            $.ajax({              
+                url: '@Url.Action("ObtenerPorId", "Inventario")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (result) {
+                    if (!result) {
+                        mostrarModalMensaje("No se pudo obtener el registro.");
+                        return;
+                    }
+
+                    const datos = result;
+
+                    // Recorre y llenar campos
+                    for (const campo in datos) {
+                        const campoMayus = campo.toUpperCase();
+                        const $input = $("#formInventario").find(`[name='${campoMayus}']`);
+
+                        //console.log(`Campo: ${campo} → Buscando como: ${campoMayus} → Encontrado: ${$input.length > 0}`);
+
+                        if ($input.length > 0) {
+                            const tipo = $input.attr("type");
+                            const valor = datos[campo];
+
+                            if (tipo === "date" && valor) {
+                                $input.val(valor.substring(0, 10));
+                            } else {
+                                $input.val(valor);
+                            }
+                        } else {
+                            console.warn(`No se encontró el campo '${campoMayus}' en el formulario.`);
+                        }
+                    }
+
+                    // Bloquear campos clave
+                    const claves = [
+                        "COD_CIA",
+                        "COMPANIA_VENTA_3",
+                        "ALMACEN_VENTA",
+                        "TIPO_MOVIMIENTO",
+                        "TIPO_DOCUMENTO",
+                        "NRO_DOCUMENTO",
+                        "COD_ITEM_2"
+                    ];
+                    claves.forEach(campo => {
+                        $("#formInventario").find(`[name='${campo}']`)
+                            .prop("readonly", true)
+                            .addClass("bg-light"); // opcional: visualmente se ve desactivado
+                    });
+
+                    // Modo edición
+                    $("#formInventario").data("modo", "editar");
+
+                    // Mostrar modal
+                    const modal = new bootstrap.Modal(document.getElementById("modalInventario"));
+                    modal.show();
+                },
+                error: function () {
+                    mostrarModalMensaje("Ocurrió un error al obtener los datos del inventario.");
                 }
             });
         });

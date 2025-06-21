@@ -79,6 +79,14 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
         }
 
         /// <summary>
+        /// Crear Parcial
+        /// </summary>
+        public IActionResult CrearParcial()
+        {
+            return PartialView("_ModalInventarioPartial", new MovInventarioDtoRequest());
+        }
+
+        /// <summary>
         /// Insertar
         /// </summary>
         [HttpPost]
@@ -101,5 +109,41 @@ namespace DINET.Prueba.Portal.Controllers.Inventario
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ObtenerPorId([FromBody] MovInventarioClaveDtoRequest request)
+        {
+            try
+            {
+                var data = await _proxy.ObtenerPorId(request);
+                return Json(data);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualizar
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Actualizar(MovInventarioDtoRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_ModalInventarioPartial", model);
+            }
+
+            try
+            {
+                await _proxy.Actualizar(model);
+                return Json(new { success = true, message = "Registro actualizado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return PartialView("_ModalInventarioPartial", model);
+            }
+        }
     }
 }

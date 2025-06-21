@@ -89,13 +89,31 @@ namespace DINET.Prueba.Services.Implementaciones
                 else
                 {
                     response.Success = false;
-                    response.ErrorMessage = $"Repository Error: {repositoryResponse.ErrorMessage}";
+
+                    // Detectar error de duplicado
+                    if (repositoryResponse.ErrorMessage != null &&
+                        repositoryResponse.ErrorMessage.Contains("duplicado", StringComparison.OrdinalIgnoreCase))
+                    {
+                        response.ErrorMessage = "Ya existe un registro con los mismos datos.";
+                    }
+                    else
+                    {
+                        response.ErrorMessage = $"Repository Error: {repositoryResponse.ErrorMessage}";
+                    }
                 }
             }
             catch (Exception ex)
             {
+                if (ex.Message.Contains("duplicado", StringComparison.OrdinalIgnoreCase))
+                {
+                    response.ErrorMessage = "Ya existe un registro con los mismos datos.";
+                }
+                else
+                {
+                    response.ErrorMessage = "Error inesperado: " + ex.Message;
+                }
+
                 response.Success = false;
-                response.ErrorMessage = "Service Error: " + ex.Message;
             }
 
             return response;

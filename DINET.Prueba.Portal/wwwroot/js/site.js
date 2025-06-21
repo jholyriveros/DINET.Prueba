@@ -1,31 +1,38 @@
 ﻿// Mostrar modales
 document.getElementById("btnNuevo").addEventListener("click", function () {
-    const form = document.getElementById("formInventario");
+    $.ajax({
+        url: urlCrearParcial,
+        type: 'GET',
+        success: function (html) {
+            $("#modalInventario .modal-content").html(html);
 
-    // 1. Limpiar campos
-    form.reset();
+            const $form = $("#modalInventario").find("form");
 
-    // 2. Limpiar errores visuales
-    $(form).find(".input-validation-error").removeClass("input-validation-error");
+            // Resetear modo
+            $form.data("modo", "insertar");
 
-    // 3. Limpiar mensajes de error visibles (los internos también)
-    $(form).find("span.field-validation-error")
-        .removeClass("field-validation-error")
-        .addClass("field-validation-valid")
-        .text(""); // limpia el texto del span principal
+            // Habilitar campos clave
+            const claves = [
+                "COD_CIA", "COMPANIA_VENTA_3", "ALMACEN_VENTA",
+                "TIPO_MOVIMIENTO", "TIPO_DOCUMENTO", "NRO_DOCUMENTO", "COD_ITEM_2"
+            ];
+            claves.forEach(campo => {
+                $form.find(`[name='${campo}']`).prop("readonly", false);
+            });
 
-    // 4. Limpia todos los <span id="XYZ-error"> que tengan texto residual
-    $(form).find("span[id$='-error']").text("");
+            // Re-parsear el validador
+            if ($.validator && $.validator.unobtrusive) {
+                $.validator.unobtrusive.parse($form);
+            }
 
-    // 4. Resetear el validador unobtrusive
-    if ($.validator && $.validator.unobtrusive) {
-        $.validator.unobtrusive.parse(form);
-        $(form).validate().resetForm();
-    }
-
-    // 5. Mostrar modal
-    var modal = new bootstrap.Modal(document.getElementById("modalInventario"));
-    modal.show();
+            // Mostrar modal
+            const modal = new bootstrap.Modal(document.getElementById("modalInventario"));
+            modal.show();
+        },
+        error: function () {
+            mostrarModalMensaje("No se pudo abrir el formulario de nuevo.");
+        }
+    });
 });
 
 function mostrarModalMensaje(texto) {

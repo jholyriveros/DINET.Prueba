@@ -5,7 +5,7 @@ namespace DINET.Prueba.Models.Response.Inventario
     /// <summary>
     /// MovInventario Dto Response
     /// </summary>
-    public class MovInventarioDtoResponse : BaseResponse
+    public class MovInventarioDtoResponse
     {
         /// <summary>
         /// Código de compañía

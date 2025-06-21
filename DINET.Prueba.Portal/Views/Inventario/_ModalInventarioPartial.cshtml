@@ -1,11 +1,13 @@
 ﻿@using DINET.Prueba.Models.Request.Inventario;
 @model MovInventarioDtoRequest
 
-<form id="formInventario" method="post" novalidate>
+<form id="formInventario" method="post">
     <div class="modal-header">
         <h5 class="modal-title">Registro de Inventario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger pb-0" })
 
     <div class="modal-body">
         <div class="row">
